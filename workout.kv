@@ -3,52 +3,154 @@ ScreenManagement:
 	ScreenTwo:
 	ScreenThree:
 	
+<CustButtUpScrn2@Button>:
+	on_release:
+		app.root.transition.direction = "up"
+		app.root.transition.duration = .2
+		app.root.current = "screen_two"
+	
+<CustLabel@Label>:
+	color: 0, 0, 0, 1
+	canvas.before:
+		Color:
+			rgba: 1, 1, 1, 1
+		Rectangle:
+			pos: self.pos
+			size: self.size
+
 <ScreenOne>:
 	name: "screen_one"
 	
 	BoxLayout:
-		Button:
-			text: "Macrocycle, Click to go to Mesocycle"
-			on_press:
-				root.manager.transition.direction = "left"
-				root.manager.transition.duration = .5
-				root.manager.current = "screen_two"
-		Button:
-			text: "Macrocycle, Click to go to Microcycle"
-			on_press:
-				root.manager.transition.direction = "left"
-				root.manager.transition.duration = .5
-				root.manager.current = "screen_three"
+		orientation: "vertical"
+		CustLabel:
+			text: "Macrocycle"
+			size_hint_y: .25
+
+		BoxLayout:
+			orientation: "horizontal"
+			size_hint_y: .2
+			CustLabel:
+				text: "Jan"
+
+			CustLabel:
+				text: "Feb"
+
+			CustLabel:
+				text: "March"
+
+			CustLabel:
+				text: "April"
+
+			CustLabel:
+				text: "May"
+
+			CustLabel:
+				text: "June"
+
+			CustLabel:
+				text: "July"
+
+			CustLabel:
+				text: "Aug"
+
+			CustLabel:
+				text: "Sep"
+
+			CustLabel:
+				text: "Oct"
+
+			CustLabel:
+				text: "Nov"
+
+			CustLabel:
+				text: "Dec"
+
+		BoxLayout:
+			orientation: "horizontal"
+			size_hint_y: .25
+			CustButtUpScrn2:
+				text: "January"
+
+			CustButtUpScrn2:
+				text: "February"
+
+			CustButtUpScrn2:
+				text: "March"
+
+			CustButtUpScrn2:
+				text: "April"
+
+			CustButtUpScrn2:
+				text: "May"
+
+			CustButtUpScrn2:
+				text: "June"
+
+			CustButtUpScrn2:
+				text: "July"
+
+			CustButtUpScrn2:
+				text: "August"
+
+			CustButtUpScrn2:
+				text: "September"
+
+			CustButtUpScrn2:
+				text: "October"
+
+			CustButtUpScrn2:
+				text: "November"
+
+			CustButtUpScrn2:
+				text: "December"
+
+		CustLabel:
+			text: "Use the above sliders to define the number and length of your Mesocycles"
+			size_hint_y: .5
+
+				
+		
 <ScreenTwo>:
 	name: "screen_two"
 	
 	BoxLayout:
+		orientation: "vertical"
 		Button:
 			text: "Mesocycle, Click to go to Macrocycle"
-			on_press:
-				root.manager.transition.direction = "right"
-				root.manager.transition.duration = .5
+			color: 0, 0, 0, 1
+			background_normal: ''
+			on_release:
+				root.manager.transition.direction = "down"
+				root.manager.transition.duration = .2
 				root.manager.current = "screen_one"
 		Button:
 			text: "Mesocycle, Click to go to Microcycle"
-			on_press:
-				root.manager.transition.direction = "left"
-				root.manager.transition.duration = .5
+			color: 0, 0, 0, 1
+			background_normal: ''
+			on_release:
+				root.manager.transition.direction = "up"
+				root.manager.transition.duration = .2
 				root.manager.current = "screen_three"
 
 <ScreenThree>:
 	name: "screen_three"
 	
 	BoxLayout:
-		Button:
-			text: "Microcycle, Click to go to Macrocycle"
-			on_press:
-				root.manager.transition.direction = "right"
-				root.manager.transition.duration = .5
-				root.manager.current = "screen_one"
+		orientation: "vertical"
 		Button:
 			text: "Microcycle, Click to go to Mesocycle"
-			on_press:
-				root.manager.transition.direction = "right"
-				root.manager.transition.duration = .5
+			color: 0, 0, 0, 1
+			background_normal: ''
+			on_release:
+				root.manager.transition.direction = "down"
+				root.manager.transition.duration = .2
 				root.manager.current = "screen_two"
+		Button:
+			text: "Microcycle, Click to go to Macrocycle"
+			color: 0, 0, 0, 1
+			background_normal: ''
+			on_release:
+				root.manager.transition.direction = "up"
+				root.manager.transition.duration = .2
+				root.manager.current = "screen_one"
