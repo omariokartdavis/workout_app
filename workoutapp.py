@@ -14,11 +14,9 @@ class ScreenThree(Screen):
 class ScreenManagement(ScreenManager):
     pass
 
-screens = Builder.load_file("workout.kv")
 
 class WorkoutApp(App):
-    def build(self):
-        return screens
+    pass
 
 sample_app = WorkoutApp()
 sample_app.run()
