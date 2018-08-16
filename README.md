@@ -1,3 +1,3 @@
 # workout_app
-create a macro-mes-microcycle workout planner using kivy
-basic readme
+create a macro-meso-microcycle workout planner using kivy
+
