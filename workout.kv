@@ -1,13 +1,21 @@
 ScreenManagement:
-	ScreenOne:
-	ScreenTwo:
-	ScreenThree:
+	LoginScreen:
+		name: "login_screen"
+	MainMenuScreen:
+		name: "mainmenu_screen"
+	MacrocycleScreen:
+		name: "macrocycle_screen"
+	MesocycleScreen:
+		name: "mesocycle_screen"
+	MicrocycleScreen:
+		name: "microcycle_screen"
+	
 	
 <CustButtUpScrn2@Button>:
 	on_release:
 		app.root.transition.direction = "up"
 		app.root.transition.duration = .2
-		app.root.current = "screen_two"
+		app.root.current = "mesocycle_screen"
 	
 <CustLabel@Label>:
 	color: 0, 0, 0, 1
@@ -17,16 +25,125 @@ ScreenManagement:
 		Rectangle:
 			pos: self.pos
 			size: self.size
-
-<ScreenOne>:
-	name: "screen_one"
+			
+<LoginLabel@Label>:
+	color: 0, 0, 0, 1
+	size_hint: .1, .05
+	canvas.before:
+		Color:
+			rgba: 1, 1, 1, 1
+		Rectangle:
+			pos: self.pos
+			size: self.size
+			
+<LoginInput@TextInput>:
+	size_hint: .3, .05
+	write_tab: False
+	multiline: False
 	
+	
+<FailedLoginPopup>:
+	size_hint: .5, .5
+	auto_dismiss: False
+	title: "Incorrect Login"
 	BoxLayout:
 		orientation: "vertical"
+		Label:
+			text: "Incorrect username or password"
+		Button:
+			text: "Close"
+			on_press: root.dismiss()
+			
+<NewAccountPopup>:
+	new_username: new_user_name
+	new_password: new_pass_word
+	
+	size_hint: .5, .5
+	auto_dismiss: False
+	title: "Create New Account"
+	GridLayout:
+		rows: 3
+		cols: 2
+		spacing: 10
+		padding: 10
+		
+		Label:
+			text: "Enter New Username:"
+		TextInput:
+			id: new_user_name
+			write_tab: False
+			multiline: False
+			on_parent: if args[1]: self.focus = True
+			on_text_validate: root.add_credentials()
+		Label:
+			text: "Enter New Password:"
+			id: new_pass_word
+		TextInput:
+			id: new_pass_word
+			write_tab: False
+			multiline: False
+			on_text_validate:
+				root.add_credentials()
+				root.dismiss()
+		Button:
+			text: "Create Account"
+			on_release:
+				root.add_credentials()
+				root.dismiss()
+			
+<LoginScreen>:
+	username: user_name
+	password: pass_word
+
+	FloatLayout:
+		LoginLabel:
+			text: "Username:"
+			pos_hint: {"x": .35, "y": .55}
+		LoginInput:
+			id: user_name
+			pos_hint: {"x": .45, "y": .55}
+			on_parent: if args[1]: self.focus = True
+			on_text_validate: root.check_credentials()
+		LoginLabel:
+			text: "Password:"
+			pos_hint: {"x": .35, "y": .50}
+		LoginInput:
+			id: pass_word
+			pos_hint: {"x": .45, "y": .50}
+			on_text_validate: root.check_credentials()
+		Button:
+			text: "Login"
+			pos_hint: {"x": .65, "y": .45}
+			size_hint: .1, .05
+			on_release:
+				root.check_credentials()
+		Button:
+			text: "Create New Account"
+			color: 1, 0, 0, 1
+			background_normal: ''
+			pos_hint: {"x": .45, "y": .45}
+			size_hint: .2, .05
+			on_release:
+				root.new_account()
+			
+<MacrocycleScreen>:
+				
+	BoxLayout:
+		orientation: "vertical"
+		Button:
+			size_hint_y: .05
+			size_hint_x: None
+			width: 50
+			text: "back"
+			on_press:
+				app.root.transition.direction = "down"
+				app.root.transition.duration = .2
+				app.root.current = "login_screen"
+				
 		CustLabel:
 			text: "Macrocycle"
 			size_hint_y: .25
-
+				
 		BoxLayout:
 			orientation: "horizontal"
 			size_hint_y: .2
@@ -107,12 +224,9 @@ ScreenManagement:
 
 		CustLabel:
 			text: "Use the above sliders to define the number and length of your Mesocycles"
-			size_hint_y: .5
-
-				
+			size_hint_y: .5			
 		
-<ScreenTwo>:
-	name: "screen_two"
+<MesocycleScreen>:
 	
 	BoxLayout:
 		orientation: "vertical"
@@ -123,7 +237,7 @@ ScreenManagement:
 			on_release:
 				root.manager.transition.direction = "down"
 				root.manager.transition.duration = .2
-				root.manager.current = "screen_one"
+				root.manager.current = "macrocycle_screen"
 		Button:
 			text: "Mesocycle, Click to go to Microcycle"
 			color: 0, 0, 0, 1
@@ -131,10 +245,9 @@ ScreenManagement:
 			on_release:
 				root.manager.transition.direction = "up"
 				root.manager.transition.duration = .2
-				root.manager.current = "screen_three"
+				root.manager.current = "microcycle_screen"
 
-<ScreenThree>:
-	name: "screen_three"
+<MicrocycleScreen>:
 	
 	BoxLayout:
 		orientation: "vertical"
@@ -145,7 +258,7 @@ ScreenManagement:
 			on_release:
 				root.manager.transition.direction = "down"
 				root.manager.transition.duration = .2
-				root.manager.current = "screen_two"
+				root.manager.current = "mesocycle_screen"
 		Button:
 			text: "Microcycle, Click to go to Macrocycle"
 			color: 0, 0, 0, 1
@@ -153,4 +266,4 @@ ScreenManagement:
 			on_release:
 				root.manager.transition.direction = "up"
 				root.manager.transition.duration = .2
-				root.manager.current = "screen_one"
+				root.manager.current = "macrocycle_screen"
