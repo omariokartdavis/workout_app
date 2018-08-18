@@ -29,7 +29,7 @@ class LoginScreen(Screen):
             self.password.text = ""
             self.manager.transition.direction = "up"
             self.manager.transition.duration = 1
-            self.manager.current = "macrocycle_screen"
+            self.manager.current = "mainmenu_screen"
         else:
             self.username.text = ""
             self.password.text = ""
@@ -44,7 +44,42 @@ class LoginScreen(Screen):
         the_popup.open()
         
 class MainMenuScreen(Screen):
-    pass
+    
+    added_athlete_spinner_text_input = ObjectProperty()
+    spinner_values = ObjectProperty()
+    
+    athletes = {"first athlete" : "macrocycle_screen", 'second athlete' : 'mesocycle_screen'}
+    
+    def add_athlete(self):
+        # adds athlete to the spinner, adds athlete to the athlete dictionary, clears the text field
+        # I need to find a way to create a new screen with the athletes name that is
+        # that athletes macrocycle screen. this new screen should be the value added to the
+        # athletes dictionary
+        # maybe create another class that is called NewAthlete() and has a super that is the macrocycle screen?
+        # ^this would only give it the properties of the macro screen not all screens.
+
+        #possibly add functionality so when you add an athlete it immediately takes you to
+        # their macrocycle screen? Not sure if this would be good because then you have to go back
+        # if you are trying to just add multiple athletes at once
+
+        # think about group functionality. add a "group" of athletes that all have the same cycles but just
+        # different individual values on the microcycle level
+        
+        self.spinner_values.values.append(self.added_athlete_spinner_text_input.text)
+        self.athletes[self.added_athlete_spinner_text_input.text] = "microcycle_screen"
+        self.added_athlete_spinner_text_input.text = ''
+        
+    def athlete_picked(self, value):
+        
+        if value in self.athletes:
+            self.manager.transition.direction = "up"
+            self.manager.transition.duration = 1
+            self.manager.current = self.athletes[value]
+        else:
+            # do something if athlete is not in dictionary. popup that says add athlete first?
+            # technically this should never happen as a name in the spinner has to be added
+            # to it via the add athlete button or has to be preloaded by me
+            pass
 
 class MacrocycleScreen(Screen):
     pass
