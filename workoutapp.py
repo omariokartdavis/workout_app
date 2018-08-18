@@ -64,7 +64,8 @@ class MainMenuScreen(Screen):
 
         # think about group functionality. add a "group" of athletes that all have the same cycles but just
         # different individual values on the microcycle level
-        
+
+        #always have entered athletes show up with First Letter Capitolized?
         self.spinner_values.values.append(self.added_athlete_spinner_text_input.text)
         self.athletes[self.added_athlete_spinner_text_input.text] = "microcycle_screen"
         self.added_athlete_spinner_text_input.text = ''
@@ -75,6 +76,7 @@ class MainMenuScreen(Screen):
             self.manager.transition.direction = "up"
             self.manager.transition.duration = 1
             self.manager.current = self.athletes[value]
+            self.spinner_values.text = "Athletes"
         else:
             # do something if athlete is not in dictionary. popup that says add athlete first?
             # technically this should never happen as a name in the spinner has to be added
