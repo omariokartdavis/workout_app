@@ -125,20 +125,59 @@ ScreenManagement:
 			size_hint: .2, .05
 			on_release:
 				root.new_account()
-			
+
+<MainMenuScreen>:
+	added_athlete_spinner_text_input: added_athlete
+	spinner_values: spinner_id
+	
+	BoxLayout:
+		orientation: "vertical"
+		Button:
+			size_hint_y: None
+			height: 30
+			size_hint_x: .1
+			text: "To Login"
+			on_press:
+				app.root.transition.direction = "down"
+				app.root.transition.duration = .2
+				app.root.current = "login_screen"
+				
+		BoxLayout:
+			orientation: "horizontal"
+			size_hint_y: None
+			height: 30
+			Spinner:
+				id: spinner_id
+				text: "Athletes"
+				values: ["first athlete", "second athlete"]			
+				on_text: root.athlete_picked(spinner_id.text)
+			TextInput:
+				id: added_athlete
+				write_tab: False
+				multiline: False
+				on_text_validate:
+					root.add_athlete()
+					
+			Button:
+				text: "Add Athlete"
+				on_release:
+					root.add_athlete()	
+		# The below line is simply to move the above buttons to the top of the screen
+		# a box layout does not allow you to move vertically whilst in a vertical layout
+		CustLabel:
+			text: ''
 <MacrocycleScreen>:
 				
 	BoxLayout:
 		orientation: "vertical"
 		Button:
 			size_hint_y: .05
-			size_hint_x: None
-			width: 50
-			text: "back"
+			size_hint_x: .15
+			text: "To Main Menu"
 			on_press:
 				app.root.transition.direction = "down"
 				app.root.transition.duration = .2
-				app.root.current = "login_screen"
+				app.root.current = "mainmenu_screen"
 				
 		CustLabel:
 			text: "Macrocycle"
