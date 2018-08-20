@@ -1,0 +1,29 @@
+Workout app needed functionality list:
+- upon adding athlete, have it create their own screens specific to them
+- adding a group of athletes at once
+- app name
+- app icon
+- main menu and login screen decorations
+- macrocycle screen, mesocycle box sliders with labels on them for the number in the mesocycle line that they are
+- macrocycle year represented as a timeline
+	- mini goals that are arrows pointing to points that the user sets on the timeline. This are stepped goals that the athlete should hit if they want to hit their final goal
+- macrocycle year start month determined on athlete creation by asking when the goal is to be completed
+	- the goal is the date of the final competition, etc. (crossfit games)
+	- the macrocycle year starts the week/month after that goal
+- what should happen if an athletes name is clicked on in the spinner but that athlete is not in the dictionary?
+	- theoretically this can't happen as any name in the spinner has been added by the user and therefore is in the dictionary via the add athlete button
+- app memory
+	- how does the app remember what you have added into it on previous openings? its not just a file, it has storage and memory. SQL?
+	- account info memory? (login credentials)
+- create "athlete profiles"?
+	- show progress over multiple macrocycles??
+	- how could this be handled?
+- capitolize first letter of athletes names when they are added?
+- sending athlete info from coach to athlete and vice-versa
+	- add this either to main menu screen or athletes individual page or both
+	- sent via email. 
+- account recognition between mobile and desktop
+- account database storage
+Done: - account creation needs to be done with an email. can use email as usernames
+	- create email validation and password validation functions in the NewAccountPopup
+- add any other valid emails to valid_email_accounts list
