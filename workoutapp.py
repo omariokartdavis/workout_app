@@ -9,11 +9,33 @@ from kivy.uix.popup import Popup
 class FailedLoginPopup(Popup):
     pass
 
+class InvalidUsernameCreationPopup(Popup):
+    pass
+
+class InvalidPasswordCreationPopup(Popup):
+    pass
+
+class UsernameAlreadyExistsPopup(Popup):
+    pass
+
 class NewAccountPopup(Popup):
     
-    def add_credentials(self):
-        LoginScreen.login_credentials[self.new_username.text] = self.new_password.text
+    valid_email_accounts = ['@gmail', '@yahoo', '@hotmail', '@aol', '@earthlink']
     
+    def validate_new_account(self):
+        if any(key in self.new_username.text for key in self.valid_email_accounts):
+            if self.new_username.text in LoginScreen.login_credentials:
+                the_popup = UsernameAlreadyExistsPopup()
+                the_popup.open()
+            if self.new_password.text in LoginScreen.login_credentials.values():
+                the_popup = InvalidPasswordCreationPopup()
+                the_popup.open()
+            else:
+                LoginScreen.login_credentials[self.new_username.text] = self.new_password.text
+        else:
+            the_popup = InvalidUsernameCreationPopup()
+            the_popup.open()
+
 class LoginScreen(Screen):
     username = ObjectProperty()
     password = ObjectProperty()
@@ -52,6 +74,7 @@ class MainMenuScreen(Screen):
     
     def add_athlete(self):
         # adds athlete to the spinner, adds athlete to the athlete dictionary, clears the text field
+        
         # I need to find a way to create a new screen with the athletes name that is
         # that athletes macrocycle screen. this new screen should be the value added to the
         # athletes dictionary
