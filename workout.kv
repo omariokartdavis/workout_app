@@ -1,3 +1,5 @@
+# Note: comments in kv file must be on their own line. first character must be pound sign
+
 ScreenManagement:
 	LoginScreen:
 		name: "login_screen"
@@ -41,7 +43,6 @@ ScreenManagement:
 	write_tab: False
 	multiline: False
 	
-	
 <FailedLoginPopup>:
 	size_hint: .5, .5
 	auto_dismiss: False
@@ -50,6 +51,42 @@ ScreenManagement:
 		orientation: "vertical"
 		Label:
 			text: "Incorrect username or password"
+		Button:
+			text: "Close"
+			on_press: root.dismiss()
+
+<InvalidUsernameCreationPopup>:
+	size_hint: .5, .5
+	auto_dismiss: False
+	title: "Invalid Email Adress Entered"
+	BoxLayout:
+		orientation: "vertical"
+		Label:
+			text: "Invalid username entered.\nPlease enter a valid email address as a username"
+		Button:
+			text: "Close"
+			on_press: root.dismiss()
+	
+<UsernameAlreadyExistsPopup>:
+	size_hint: .5, .5
+	auto_dismiss: False
+	title: "Username Already Exists"
+	BoxLayout:
+		orientation: "vertical"
+		Label:
+			text: "Invalid username entered.\nThe username entered already exists."
+		Button:
+			text: "Close"
+			on_press: root.dismiss()
+			
+<InvalidPasswordCreationPopup>:
+	size_hint: .5, .5
+	auto_dismiss: False
+	title: "Invalid Password Entered"
+	BoxLayout:
+		orientation: "vertical"
+		Label:
+			text: "Invalid password entered.\nThe password entered already exists.\nPlease enter a different password"
 		Button:
 			text: "Close"
 			on_press: root.dismiss()
@@ -74,7 +111,7 @@ ScreenManagement:
 			write_tab: False
 			multiline: False
 			on_parent: if args[1]: self.focus = True
-			on_text_validate: root.add_credentials()
+			on_text_validate: root.validate_new_account()
 		Label:
 			text: "Enter New Password:"
 			id: new_pass_word
@@ -83,12 +120,12 @@ ScreenManagement:
 			write_tab: False
 			multiline: False
 			on_text_validate:
-				root.add_credentials()
+				root.validate_new_account()
 				root.dismiss()
 		Button:
 			text: "Create Account"
 			on_release:
-				root.add_credentials()
+				root.validate_new_account()
 				root.dismiss()
 			
 <LoginScreen>:
@@ -162,10 +199,12 @@ ScreenManagement:
 				text: "Add Athlete"
 				on_release:
 					root.add_athlete()	
+
 		# The below line is simply to move the above buttons to the top of the screen
 		# a box layout does not allow you to move vertically whilst in a vertical layout
 		CustLabel:
 			text: ''
+			
 <MacrocycleScreen>:
 				
 	BoxLayout:
